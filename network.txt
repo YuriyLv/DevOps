@@ -1,0 +1,28 @@
+CIDR block 10.1.1.0/25
+Netmask:   255.255.255.128 = 25  11111111.11111111.11111111.1 0000000
+Hosts:     126                   00001010.00000001.00000001.0 0000000 => 00001010.00000001.00000001.0 1111110
+Network:   10.1.1.0/25           00001010.00000001.00000001.0 0000000
+Broadcast: 10.1.1.127            00001010.00000001.00000001.0 1111111
+HostMin:   10.1.1.1              00001010.00000001.00000001.0 0000001
+HostMax:   10.1.1.126            00001010.00000001.00000001.0 1111110
+
+online calculator:
+IP Address:	10.1.1.0
+Network Address:	10.1.1.0
+Usable Host IP Range:	10.1.1.1 - 10.1.1.126
+Broadcast Address:	10.1.1.127
+Total Number of Hosts:	128
+Number of Usable Hosts:	126
+Subnet Mask:	255.255.255.128
+Wildcard Mask:	0.0.0.127
+Binary Subnet Mask:	11111111.11111111.11111111.10000000
+IP Class:	C
+CIDR Notation:	/25
+IP Type:	Private 
+Short:	10.1.1.0 /25
+Binary ID:	00001010000000010000000100000000
+Integer ID:	167837952
+Hex ID:	0xa010100
+in-addr.arpa:	0.1.1.10.in-addr.arpa
+IPv4 Mapped Address:	::ffff:0a01.0100
+6to4 Prefix:	2002:0a01.0100::/48
