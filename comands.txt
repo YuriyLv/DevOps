@@ -1,0 +1,10 @@
+ping 127.0.0.1
+tracerout -I google.com
+nslookup amazon.com
+dig lol.com
+host github.com
+ifconfig
+telnet <hostname> [port]
+wget -l 2 dozee.gq
+ssh-kegen -f name
+
