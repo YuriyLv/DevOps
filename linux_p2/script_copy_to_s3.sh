@@ -10,12 +10,12 @@ curent_date=$(date +%d-%m-%Y);
 #select all txt file in directory
 directory=$(ls *.txt); 
 
-#delete all tar.gz file older then 30min
-find -name "*tar.gz" -mmin +1 -type f -exec rm -fv {} \;  2>>$err >>$log
+#copy all tar.gz file older then 30min
+find -name "*tar.gz" -mmin +30 -type f -exec aws s3 cp {} s3://<name> \; 2>>$err >>$log
 
 #arhive all txt file with modify name in curent directory
 for file in $directory;
 do
     tar -czvf $file"_"$curent_date.tar.gz ./$file 2>>$err >>$log 
+    #sleep 0
 done
-
