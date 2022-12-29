@@ -11,7 +11,7 @@ curent_date=$(date +%d-%m-%Y);
 directory=$(ls *.txt); 
 
 #delete all tar.gz file older then 30min
-find -name "*tar.gz" -mmin +1 -type f -exec rm -fv {} \;  2>>$err >>$log
+find -name "*tar.gz" -mmin +30 -type f -exec rm -fv {} \;  2>>$err >>$log
 
 #arhive all txt file with modify name in curent directory
 for file in $directory;
