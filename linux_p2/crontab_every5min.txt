@@ -1,0 +1,1 @@
+*/5 * * * * /home/dozee/Dev/DesOps/linux_p2/script.sh
