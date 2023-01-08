@@ -1,0 +1,70 @@
+ssh aws                                                                                         ✔  21:18:00  
+Last login: Sun Jan  8 18:48:46 2023 from 176.117.187.49
+
+       __|  __|_  )
+       _|  (     /   Amazon Linux 2 AMI
+      ___|\___|___|
+
+https://aws.amazon.com/amazon-linux-2/
+[ec2-user@ip-172-31-23-20 ~]$ uname -a
+Linux ip-172-31-23-20.eu-central-1.compute.internal 5.10.157-139.675.amzn2.x86_64 #1 SMP Thu Dec 8 01:29:11 UTC 2022 x86_64 x86_64 
+x86_64 GNU/Linux
+[ec2-user@ip-172-31-23-20 ~]$ ng
+ngettext  nginx
+[ec2-user@ip-172-31-23-20 ~]$ nginx -V
+nginx version: nginx/1.23.3
+built by gcc 7.3.1 20180712 (Red Hat 7.3.1-15) (GCC)
+built with OpenSSL 1.0.2k-fips  26 Jan 2017
+TLS SNI support enabled
+configure arguments: --prefix=/var/www/html --sbin-path=/usr/sbin/nginx --conf-path=/etc/nginx/nginx.conf 
+--http-log-path=/var/log/nginx/access.log --error-log-path=/var/log/nginx/error.log --lock-path=/var/lock/nginx.lock 
+--pid-path=/var/run/nginx.pid --with-http_ssl_module --with-http_image_filter_module=dynamic --modules-path=/etc/nginx/modules 
+--with-stream=dynamic --with-http_addition_module --with-pcre --add-module=/opt/nginx-1.23.3/module/nginx_upstream_check_module 
+--with-http_stub_status_module
+[ec2-user@ip-172-31-23-20 ~]$ service nginx status
+Redirecting to /bin/systemctl status nginx.service
+● nginx.service - The NGINX HTTP and reverse proxy server
+   Loaded: loaded (/usr/lib/systemd/system/nginx.service; enabled; vendor preset: disabled)
+   Active: active (running) since нд 2023-01-08 18:46:53 UTC; 36min ago
+  Process: 3124 ExecStart=/usr/sbin/nginx (code=exited, status=0/SUCCESS)
+  Process: 3087 ExecStartPre=/usr/sbin/nginx -t (code=exited, status=0/SUCCESS)
+ Main PID: 3126 (nginx)
+   CGroup: /system.slice/nginx.service
+           ├─3126 nginx: master process /usr/sbin/nginx
+           └─3127 nginx: worker process
+
+січ 08 18:46:53 ip-172-31-23-20.eu-central-1.compute.internal systemd[1]: Starting The NGINX HTTP and reverse proxy se.....
+січ 08 18:46:53 ip-172-31-23-20.eu-central-1.compute.internal nginx[3087]: nginx: the configuration file /etc/nginx/ng...ok
+січ 08 18:46:53 ip-172-31-23-20.eu-central-1.compute.internal nginx[3087]: nginx: configuration file /etc/nginx/nginx....ul
+січ 08 18:46:53 ip-172-31-23-20.eu-central-1.compute.internal systemd[1]: Failed to parse PID from file /var/run/nginx...nt
+січ 08 18:46:53 ip-172-31-23-20.eu-central-1.compute.internal systemd[1]: Started The NGINX HTTP and reverse proxy server.
+Hint: Some lines were ellipsized, use -l to show in full.
+
+cat /etc/nginx/nginx.conf
+location / {
+            root   html;
+            index  index.html index.htm;
+            auth_basic           "Admin";
+            auth_basic_user_file /etc/nginx/.htpasswd;
+}
+location /status {
+            stub_status;
+}
+
+[ec2-user@ip-172-31-23-20 ~]$ exit
+Connection to 52.59.202.116 closed.
+
+curl 52.59.202.116
+<html>
+<head><title>401 Authorization Required</title></head>
+<body>
+<center><h1>401 Authorization Required</h1></center>
+<hr><center>nginx/1.23.3</center>
+</body>
+</html>
+
+curl 52.59.202.116/status
+Active connections: 1
+server accepts handled requests
+ 2 2 2
+Reading: 0 Writing: 1 Waiting: 0

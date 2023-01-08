@@ -1,0 +1,71 @@
+###############################
+#                             #
+# cereate with tears by Yuriy #
+#                             #
+###############################
+
+sudo su
+
+yum update -y
+
+yum groupinstall "Development Tools" -y
+
+cd /opt
+
+wget https://nginx.org/download/nginx-1.23.3.tar.gz -y
+
+tar -xzf nginx-1.23.3.tar.gz -y
+
+rm nginx-1.23.3.tar.gz -y
+
+cd nginx-1.23.3
+
+mkdir module
+
+cd module
+
+git clone https://github.com/yaoweibin/nginx_upstream_check_module
+
+cd ../..
+
+yum install -y pcre-devel
+
+yum install -y openssl-devel
+
+./configure --prefix=/var/www/html --sbin-path=/usr/sbin/nginx --conf-path=/etc/nginx/nginx.conf 
+--http-log-path=/var/log/nginx/access.log --error-log-path=/var/log/nginx/error.log --lock-path=/var/lock/nginx.lock 
+--pid-path=/var/run/nginx.pid --with-http_ssl_module --with-http_image_filter_module=dynamic --modules-path=/etc/nginx/modules 
+--with-stream=dynamic --with-http_addition_module --with-pcre --add-module=/opt/nginx-1.23.3/module/nginx_upstream_check_module 
+--with-http_stub_status_module
+
+make
+
+make install
+
+nginx
+
+nginx -V
+
+ps aux | grep nginx
+
+nano /lib/systemd/system/nginx.service
+
+#add to file
+[Unit]
+Description=The NGINX HTTP and reverse proxy server
+After=syslog.target network-online.target remote-fs.target nss-lookup.target
+Wants=network-online.target
+[Service]
+Type=forking
+PIDFile=/var/run/nginx.pid
+ExecStartPre=/usr/sbin/nginx -t
+ExecStart=/usr/sbin/nginx
+ExecReload=/usr/sbin/nginx -s reload
+ExecStop=/bin/kill -s QUIT $MAINPID
+PrivateTmp=true
+[Install]
+WantedBy=multi-user.target
+
+Ctrl+x, y, enter
+
+systemctl enable nginx
